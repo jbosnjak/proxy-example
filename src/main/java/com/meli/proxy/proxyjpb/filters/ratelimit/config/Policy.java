@@ -16,7 +16,6 @@ public class Policy {
 
   public enum Type {
     ORIGIN,
-    USER,
     USER_AGENT
   }
 

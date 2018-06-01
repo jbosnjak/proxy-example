@@ -28,22 +28,38 @@ zuul:
 #  sensitiveHeaders: Cookie,Set-Cookie,Authorization
   #ignoreSecurityHeaders: false
   routes:
+    meliItems:
+      path: /items/**
+      stripPrefix: false
+      serviceId: meliproxyId
     meliCategories:
       path: /categories/**
       stripPrefix: false
       serviceId: meliproxyId
-      #sensitiveHeaders:
-      #url: https://api.mercadolibre.com
+    meli:
+      path: /**
+      stripPrefix: false
+      serviceId: meliproxyId
   ratelimit:
-    enabled: false
+    enabled: true
     policies:
+      meliItems:
+        limit: 10
+        refresh-interval: 60
+        type:
+          - origin
       meliCategories:
         limit: 10
         refresh-interval: 60
         type:
           - origin
           - user_agent
-
+      meli:
+        limit: 10
+        refresh-interval: 60
+        type:
+          - origin
+          - user_agent
 meliproxyId:
   ribbon:
     listOfServers: https://api.mercadolibre.com:443

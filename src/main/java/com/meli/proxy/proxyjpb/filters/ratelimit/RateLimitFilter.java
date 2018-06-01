@@ -1,7 +1,6 @@
 package com.meli.proxy.proxyjpb.filters.ratelimit;
 
 import static com.meli.proxy.proxyjpb.filters.ratelimit.config.Policy.Type.ORIGIN;
-import static com.meli.proxy.proxyjpb.filters.ratelimit.config.Policy.Type.USER;
 import static com.meli.proxy.proxyjpb.filters.ratelimit.config.Policy.Type.USER_AGENT;
 
 import java.io.IOException;
@@ -113,9 +112,6 @@ public class RateLimitFilter extends AbstractProxyFilter {
     final StringBuilder builder = new StringBuilder(route.getId());
     if (types.contains(ORIGIN)) {
       builder.append(":").append(getRemoteAddr(request));
-    }
-    if (types.contains(USER)) {
-      builder.append(":").append((request.getUserPrincipal() != null) ? request.getUserPrincipal().getName() : "anonymous");
     }
     if (types.contains(USER_AGENT)) {
       builder.append(":").append(getUserAgent(request));
