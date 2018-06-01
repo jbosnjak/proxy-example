@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.http.HttpHeaders;
@@ -40,6 +41,9 @@ public class RateLimitFilter extends AbstractProxyFilter {
 
   @Autowired
   private RedisHealthChecker redisHealthChecker;
+
+  @Autowired
+  private CounterService counterService;
 
   /**
    * RateLimitFilter.
@@ -91,6 +95,7 @@ public class RateLimitFilter extends AbstractProxyFilter {
             ctx.put("rateLimitExceeded", "true");
             ctx.getResponse().sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Rate Limit reach");
             ctx.setSendZuulResponse(false);
+            counterService.increment("meter."+route().getId() + ".ratelimit.count");
           } catch (IOException e) {
             log.error("Error de respuesta de rateLimit", e);
             throw new RuntimeException(e);
@@ -130,7 +135,7 @@ public class RateLimitFilter extends AbstractProxyFilter {
     return userAgent;
   }
 
-  //TODO ver que pasa si esta detrás de un proxy. Quizas haya que considerar agregar alguna validación adicional.
+  // TODO ver que pasa si esta detrás de un proxy. Quizas haya que considerar agregar alguna validación adicional.
   private String getRemoteAddr(final HttpServletRequest request) {
     String ipAddress = request.getHeader("X-FORWARDED-FOR") != null ? request.getHeader("X-FORWARDED-FOR") : request.getRemoteAddr();
     return ipAddress;

@@ -15,7 +15,7 @@ spring:
         host: localhost
         port: 8125    
 management:
-  port: ${server.port}
+  port: 8081
   context-path: /management
   security:
     enabled: false
@@ -68,7 +68,6 @@ meliproxyId:
 
 server:
   port: 8080
-  #context-path: /
 
 ##LOW LEVEL CONFIG
 #We will use thread strategy because is safer.
