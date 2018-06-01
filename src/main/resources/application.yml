@@ -1,0 +1,81 @@
+spring:
+  application:
+    name: meliProxy
+  profiles:
+    include: 'routes'
+  redis:
+    embeded:
+      enabled: false
+    host: localhost
+    password: 
+    port: 6379
+  metrics:
+    export:
+      statsd:
+        host: localhost
+        port: 8125    
+management:
+  port: ${server.port}
+  context-path: /management
+  security:
+    enabled: false
+
+zuul:
+  ignoredServices: /gateway/**
+  sslHostnameValidationEnabled: false
+  addHostHeader: true
+  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+  sensitiveHeaders: Cookie,Set-Cookie,Authorization
+  #ignoreSecurityHeaders: false
+  routes:
+    meli:
+      path: /categories/**
+      serviceId: intrawayapigateway
+      url: http://api.mercadolibre.com
+  ratelimit:
+    enabled: true
+    policies:
+      meli:
+        limit: 10
+        refresh-interval: 60
+        type:
+          - origin
+          - user_agent
+      
+server:
+  port: 8080
+  #context-path: /
+
+security:
+  ignored: /**
+  basic:
+    enable: false 
+
+##LOW LEVEL CONFIG
+#We will use thread strategy because is safer.
+zuul.ribbonIsolationStrategy: THREAD # the other value is SEMAPHORE
+zuul.threadPool.useSeparateThreadPools: true
+zuul.threadPool.threadPoolKeyPrefix: apigateway
+
+ribbon.ConnectTimeout: 5000
+ribbon.ReadTimeout: 5000
+ribbon.MaxAutoRetries: 1
+ribbon.MaxAutoRetriesNextServer: 1
+ribbon.okToRetryOnAllErrors:  true
+ribbon.OkToRetryOnAllOperations: true
+ribbon.trustSelfSigned: true
+ribbon.ServerListRefreshInterval: 30000
+zuul.host.connect-timeout-millis: 5000
+zuul.host.socket-timeout-millis: 5000
+zuul.host.maxTotalConnections: 200
+zuul.host.maxPerRouteConnections: 100
+
+zuul.retryable: true
+
+logging:
+  level:
+    ROOT: WARN
+    org.springframework: WARN
+    com.meli.proxy: INFO
+    com.intraway.technology: WARN
+    com.netflix.zuul: WARN
