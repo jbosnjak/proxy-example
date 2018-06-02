@@ -10,10 +10,15 @@ services:
     build:
       context: .
       dockerfile: proxy-meli.dockerfile
-#    volumes:
-#      - .:/tmp/project
+    volumes:
+      - ./extras/application-routes.yml:/home/gradle/build/libs/application-routes.yml
     depends_on:
       - redis
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
     ports:
       - "8080:8080"
       - "8081:8081"
@@ -23,16 +28,31 @@ services:
   redis:
     container_name: redis
     image: redis
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
     ports:
       - "6379:6379"
   telegraf:
     container_name: telegraf
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
     image: telegraf:1.5.3-alpine
     volumes:
       - ./extras/telegraf.conf:/etc/telegraf/telegraf.conf:ro
   influxdb:
     container_name: influxdb
     image: influxdb
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
     volumes:
       - influxdb-data:/var/lib/influxdb
     ports:
@@ -40,6 +60,11 @@ services:
   grafana:
     container_name: grafana
     image: grafana/grafana
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
     volumes:
       - grafana-data:/var/lib/grafana
     ports:

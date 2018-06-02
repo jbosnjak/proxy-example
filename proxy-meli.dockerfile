@@ -18,4 +18,4 @@ RUN cd /home/gradle
 RUN gradle build -is
 
 ENTRYPOINT ["sh", "-c", "java -jar /home/gradle/build/libs/proxy-jpb-0.0.1-SNAPSHOT.jar"]
-#CMD ["@package.product.component@", "/var/log/iway/@norm.product@/apiGateway/intrawayApiGateway.log"]
+
