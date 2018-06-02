@@ -16,18 +16,18 @@ zuul:
     enabled: true
     policies:
       meliItems:
-        limit: 10
+        limit: 100
         refresh-interval: 60
         type:
           - origin
       meliCategories:
-        limit: 10
+        limit: 100
         refresh-interval: 60
         type:
           - origin
           - user_agent
       meli:
-        limit: 10
+        limit: 100
         refresh-interval: 60
         type:
           - origin
