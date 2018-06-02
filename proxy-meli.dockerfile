@@ -17,5 +17,7 @@ WORKDIR /home/gradle
 RUN cd /home/gradle
 RUN gradle build -is
 
-ENTRYPOINT ["sh", "-c", "java -jar /home/gradle/build/libs/proxy-jpb-0.0.1-SNAPSHOT.jar"]
+USER gradle
+
+ENTRYPOINT ["sh", "-c", "java -jar /home/gradle/build/libs/proxy-jpb-0.0.1-SNAPSHOT.jar --spring.config.location=file:/home/gradle/build/libs/"]
 

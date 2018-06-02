@@ -11,7 +11,7 @@ services:
       context: .
       dockerfile: proxy-meli.dockerfile
     volumes:
-      - ./extras/application-routes.yml:/home/gradle/build/libs/application-routes.yml
+      - ./extras/application-routes.yml:/home/gradle/build/libs/application-routes.yml:Z
     depends_on:
       - redis
     logging:
