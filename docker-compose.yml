@@ -1,0 +1,46 @@
+version: '2.3'
+
+volumes:
+  grafana-data:
+  influxdb-data:
+
+services:
+  meli-proxy:
+    container_name: meli-proxy
+    build:
+      context: .
+      dockerfile: proxy-meli.dockerfile
+#    volumes:
+#      - .:/tmp/project
+    depends_on:
+      - redis
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - SPRING_REDIS_HOST=redis
+      - SPRING_METRICS_EXPORT_STATSD_HOST=telegraf
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:6379"
+  telegraf:
+    container_name: telegraf
+    image: telegraf:1.5.3-alpine
+    volumes:
+      - ./extras/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+  influxdb:
+    container_name: influxdb
+    image: influxdb
+    volumes:
+      - influxdb-data:/var/lib/influxdb
+    ports:
+      - "8086:8086"
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"

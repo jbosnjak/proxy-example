@@ -135,7 +135,7 @@ public class RateLimitFilter extends AbstractProxyFilter {
     return userAgent;
   }
 
-  // TODO ver que pasa si esta detrás de un proxy. Quizas haya que considerar agregar alguna validación adicional.
+  // TODO ver que pasa si esta detras de un proxy. Quizas haya que considerar agregar alguna validacion adicional.
   private String getRemoteAddr(final HttpServletRequest request) {
     String ipAddress = request.getHeader("X-FORWARDED-FOR") != null ? request.getHeader("X-FORWARDED-FOR") : request.getRemoteAddr();
     return ipAddress;

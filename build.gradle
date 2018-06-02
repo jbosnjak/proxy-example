@@ -36,6 +36,8 @@ dependencies {
   compile('com.timgroup:java-statsd-client:3.1.0')
 }
 
+springBoot { mainClass = "com.meli.proxy.proxyjpb.ProxyJpbApplication" }
+
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"

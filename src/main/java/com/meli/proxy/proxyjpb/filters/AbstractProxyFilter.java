@@ -1,7 +1,5 @@
 package com.meli.proxy.proxyjpb.filters;
 
-import java.util.HashMap;
-
 import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.web.util.UrlPathHelper;
