@@ -50,3 +50,11 @@ For more info visit [https://cloud.spring.io/spring-cloud-netflix/single/spring-
 	          - user_agent
 
 RateLimit is support by Redis. When you use docker-compose to start the environment, a Redis instance is started. Locally you must provide a Redis instance. If not, the gateway will work in **fail-safe mode**.	     
+
+### Load tests	
+
+Load tests are executed with jmeter.
+
+	./jmeter -n -t loadTest/ProxyMeliLoadTest.jmx
+	
+	
