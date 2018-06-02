@@ -3,15 +3,15 @@ zuul:
     meliItems:
       path: /items/**
       stripPrefix: false
-      serviceId: meliproxyId
+      serviceId: meliitemsproxyId
     meliCategories:
       path: /categories/**
       stripPrefix: false
-      serviceId: meliproxyId
+      serviceId: melicategoriesproxyId
     meli:
       path: /**
       stripPrefix: false
-      serviceId: meliproxyId
+      serviceId: meligeneralproxyId
   ratelimit:
     enabled: true
     policies:

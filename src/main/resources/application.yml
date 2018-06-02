@@ -31,15 +31,15 @@ zuul:
     meliItems:
       path: /items/**
       stripPrefix: false
-      serviceId: meliproxyId
+      serviceId: meliitemsproxyId
     meliCategories:
       path: /categories/**
       stripPrefix: false
-      serviceId: meliproxyId
+      serviceId: melicategoriesproxyId
     meli:
       path: /**
       stripPrefix: false
-      serviceId: meliproxyId
+      serviceId: meligeneralproxyId
   ratelimit:
     enabled: true
     policies:
@@ -60,11 +60,24 @@ zuul:
         type:
           - origin
           - user_agent
-meliproxyId:
+meliitemsproxyId:
   ribbon:
     listOfServers: https://api.mercadolibre.com:443
     IsSecure: true
     NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList     
+
+melicategoriesproxyId:
+  ribbon:
+    listOfServers: https://api.mercadolibre.com:443
+    IsSecure: true
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList     
+
+meligeneralproxyId:
+  ribbon:
+    listOfServers: https://api.mercadolibre.com:443
+    IsSecure: true
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList     
+
 
 server:
   port: 8080
