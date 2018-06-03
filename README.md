@@ -28,7 +28,7 @@ There is an standard config in place within the jar file. In order to override i
 		      path: /$path/**
 		      stripPrefix: false
 		      serviceId: $serviceId
-    $serviceId:
+		$serviceId:
 	    ribbon:
 	      listOfServers: https://api.mercadolibre.com:443 (or other host)
 	      IsSecure: true
@@ -38,16 +38,16 @@ For more info visit [https://cloud.spring.io/spring-cloud-netflix/single/spring-
 
 * configure rateLimit per route:
 
-	zuul:
-	  ratelimit:
-	    enabled: true
-	    policies:
-	      $routeId:
-	        limit: 10
-	        refresh-interval: 60
-	        type:
-	          - origin(one, the other, none or both)
-	          - user_agent
+		zuul:
+		  ratelimit:
+		    enabled: true
+		    policies:
+		      $routeId:
+		        limit: 10
+		        refresh-interval: 60
+		        type:
+		          - origin(one, the other, none or both)
+		          - user_agent
 
 RateLimit is support by Redis. When you use docker-compose to start the environment, a Redis instance is started. Locally you must provide a Redis instance. If not, the gateway will work in **fail-safe mode**.	     
 
