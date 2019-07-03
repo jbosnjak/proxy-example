@@ -1,4 +1,4 @@
-# Proxy for MELI 	
+# Proxy example
 
 ### How to build
 
